@@ -1,3 +1,5 @@
+import Book from "../book/components";
+
 export function Bookshelf() {
   const book_list = [
     {
@@ -20,11 +22,7 @@ export function Bookshelf() {
       <ul>
         {book_list.map(book => {
           return (
-            <li key={book.id}>
-              Title: {book.title}
-              <br/>
-              Year: {book.year}
-            </li>
+            <Book book={book} />
           )
         })}
       </ul>
