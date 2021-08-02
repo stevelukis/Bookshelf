@@ -1,26 +1,17 @@
 import Book from "../book/components";
 
-export function Bookshelf() {
-  const book_list = [
-    {
-      id: 1,
-      title: "Book 1 Unfinished",
-      year: 1945,
-      finished: false,
-    },
-    {
-      id: 2,
-      title: "Book 2 Unfinished",
-      year: 2000,
-      finished: false,
-    },
-  ]
+export function Bookshelf(props) {
+  const bookshelfName = props.finished ? "Finished Books" : "Unfinished Books"
+
+  let {bookList} = props;
+  // If bookList is undefined, replace it with an empty array
+  bookList = bookList ? bookList : [];
 
   return (
     <section>
-      <h2>Unfinished book</h2>
+      <h2>{bookshelfName}</h2>
       <ul>
-        {book_list.map(book => {
+        {bookList.map(book => {
           return (
             <Book book={book} />
           )
