@@ -1,8 +1,12 @@
 import {AddBook} from "./add-book/components"
+import {Bookshelf} from "./bookshelf/components";
 
 function App() {
   return (
-    <AddBook />
+    <div>
+      <AddBook/>
+      <Bookshelf/>
+    </div>
   )
 }
 
