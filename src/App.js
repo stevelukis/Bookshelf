@@ -1,43 +1,28 @@
 import {AddBook} from "./add-book/components"
 import {Bookshelf} from "./bookshelf/components";
+import {useEffect, useState} from "react";
+import {getFinishedList, getUnfinishedList} from "./bookshelf/lookup";
 
 function App() {
+  const [unfinishedList, setUnfinishedList] = useState([]);
+  const [finishedList, setFinishedList] = useState([]);
+  const [isListFetched, setIsListFetched] = useState(false);
 
-  const SAMPLE_UNFINISHED_BOOK_LIST = [
-    {
-      id: 1,
-      title: "Book 1 Unfinished",
-      year: 1945,
-      finished: false,
-    },
-    {
-      id: 2,
-      title: "Book 2 Unfinished",
-      year: 2000,
-      finished: false,
-    },
-  ]
+  useEffect(() => {
+    getUnfinishedList(list => {
+      setUnfinishedList(list)
+    });
 
-  const SAMPLE_FINISHED_BOOK_LIST = [
-    {
-      id: 1,
-      title: "Book 1 Finished",
-      year: 2008,
-      finished: true,
-    },
-    {
-      id: 2,
-      title: "Book 2 Finished",
-      year: 2020,
-      finished: true,
-    },
-  ]
+    getFinishedList(list => {
+      setFinishedList(list)
+    });
+  })
 
   return (
     <div>
       <AddBook/>
-      <Bookshelf finished={false} bookList={SAMPLE_UNFINISHED_BOOK_LIST}/>
-      <Bookshelf finished={true} bookList={SAMPLE_FINISHED_BOOK_LIST}/>
+      <Bookshelf finished={false} bookList={unfinishedList}/>
+      <Bookshelf finished={true} bookList={finishedList}/>
     </div>
   )
 }
