@@ -1,7 +1,30 @@
+import {useState} from "react";
+
 export function AddBook(props) {
+
+  function getBlankBook() {
+    return {
+      title: '',
+      author: '',
+      year: 0,
+      finished: false,
+    }
+  }
+
+  const [book, setBook] = useState(getBlankBook);
 
   function handleSubmit(e) {
     e.preventDefault();
+  }
+
+  function handleChange(e) {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    setBook(oldBook => ({
+      ...oldBook,
+      [name]: value
+    }));
   }
 
   return (
@@ -16,6 +39,9 @@ export function AddBook(props) {
           <input id="inputBookTitle"
                  className="input_box"
                  type="text"
+                 name="title"
+                 value={book.title}
+                 onChange={handleChange}
                  required/>
         </div>
         <div className="input">
@@ -26,6 +52,9 @@ export function AddBook(props) {
           <input id="inputBookAuthor"
                  className="input_box"
                  type="text"
+                 name="author"
+                 value={book.author}
+                 onChange={handleChange}
                  required/>
         </div>
         <div className="input">
@@ -36,6 +65,9 @@ export function AddBook(props) {
           <input id="inputBookYear"
                  className="input_box"
                  type="number"
+                 name="year"
+                 value={book.year}
+                 onChange={handleChange}
                  required/>
         </div>
         <div className="input">
@@ -45,14 +77,13 @@ export function AddBook(props) {
           </label>
           <input id="inputBookIsComplete"
                  className="input_box"
+                 name="finished"
+                 checked={book.finished}
+                 onChange={handleChange}
                  type="checkbox"/>
         </div>
-        <button id="bookSubmit"
-                className="input"
-                type="submit"
-                onClick="onAddBook()">
-          Save
-        </button>
+        <input type="submit"
+               value="Submit"/>
       </form>
     </section>
   )
