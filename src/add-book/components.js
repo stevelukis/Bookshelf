@@ -1,4 +1,4 @@
-export function AddBook() {
+export function AddBook(props) {
 
   function handleSubmit(e) {
     e.preventDefault();

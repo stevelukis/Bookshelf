@@ -3,7 +3,7 @@ import {Bookshelf} from "./bookshelf/components";
 
 function App() {
 
-  const unfinishedBookList = [
+  const SAMPLE_UNFINISHED_BOOK_LIST = [
     {
       id: 1,
       title: "Book 1 Unfinished",
@@ -18,11 +18,26 @@ function App() {
     },
   ]
 
+  const SAMPLE_FINISHED_BOOK_LIST = [
+    {
+      id: 1,
+      title: "Book 1 Finished",
+      year: 2008,
+      finished: true,
+    },
+    {
+      id: 2,
+      title: "Book 2 Finished",
+      year: 2020,
+      finished: true,
+    },
+  ]
+
   return (
     <div>
       <AddBook/>
-      <Bookshelf finished={false} bookList={unfinishedBookList}/>
-      <Bookshelf finished={true}/>
+      <Bookshelf finished={false} bookList={SAMPLE_UNFINISHED_BOOK_LIST}/>
+      <Bookshelf finished={true} bookList={SAMPLE_FINISHED_BOOK_LIST}/>
     </div>
   )
 }
