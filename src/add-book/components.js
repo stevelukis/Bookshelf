@@ -11,7 +11,7 @@ export function AddBook(props) {
         <div className="input">
           <label className="input_label"
                  htmlFor="inputBookTitle">
-            Judul
+            Title
           </label>
           <input id="inputBookTitle"
                  className="input_box"
@@ -21,7 +21,7 @@ export function AddBook(props) {
         <div className="input">
           <label htmlFor="inputBookAuthor"
                  className="input_label">
-            Penulis
+            Author
           </label>
           <input id="inputBookAuthor"
                  className="input_box"
@@ -31,7 +31,7 @@ export function AddBook(props) {
         <div className="input">
           <label htmlFor="inputBookYear"
                  className="input_label">
-            Tahun
+            Year
           </label>
           <input id="inputBookYear"
                  className="input_box"
@@ -41,7 +41,7 @@ export function AddBook(props) {
         <div className="input">
           <label htmlFor="inputBookIsComplete"
                  className="input_label">
-            Selesai dibaca
+            Finished?
           </label>
           <input id="inputBookIsComplete"
                  className="input_box"
@@ -51,7 +51,7 @@ export function AddBook(props) {
                 className="input"
                 type="submit"
                 onClick="onAddBook()">
-          Simpan
+          Save
         </button>
       </form>
     </section>
