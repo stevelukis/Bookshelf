@@ -15,6 +15,8 @@ export function AddBook(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    props.handleAddBook(book);
+    setBook(getBlankBook());
   }
 
   function handleChange(e) {

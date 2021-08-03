@@ -5,6 +5,8 @@ export default function Book(props) {
       <p>
         Title: {book.title}
         <br/>
+        Author: {book.author}
+        <br/>
         Year: {book.year}
       </p>
     </div>

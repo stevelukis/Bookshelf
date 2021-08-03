@@ -35,3 +35,7 @@ export function getUnfinishedList(callback) {
 export function getFinishedList(callback) {
   callback(SAMPLE_FINISHED_BOOK_LIST)
 }
+
+export function saveBook(book, callback) {
+  callback({bookId: 3124}, 201)
+}
