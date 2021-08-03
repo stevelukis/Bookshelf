@@ -1,14 +1,20 @@
 export default function Book(props) {
   const {book} = props;
+  const toogleButtonText = book.finished ? "Unfinish" : "Finish";
   return (
     <div>
-      <p>
+      <div>
         Title: {book.title}
-        <br/>
+      </div>
+      <div>
         Author: {book.author}
-        <br/>
+      </div>
+      <div>
         Year: {book.year}
-      </p>
+      </div>
+      <div>
+        <button>{toogleButtonText}</button>
+      </div>
     </div>
   )
 }
