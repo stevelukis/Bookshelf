@@ -6,7 +6,6 @@ import {getFinishedList, getUnfinishedList} from "./bookshelf/lookup";
 function App() {
   const [unfinishedList, setUnfinishedList] = useState([]);
   const [finishedList, setFinishedList] = useState([]);
-  const [isListFetched, setIsListFetched] = useState(false);
 
   useEffect(() => {
     getUnfinishedList(list => {
