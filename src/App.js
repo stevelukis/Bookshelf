@@ -1,7 +1,7 @@
 import {AddBook} from "./add-book/components"
 import {Bookshelf} from "./bookshelf/components";
 import {useEffect, useState} from "react";
-import {getFinishedList, getUnfinishedList, saveBook, setFinished} from "./bookshelf/lookup";
+import {deleteBook, getFinishedList, getUnfinishedList, saveBook, setFinished} from "./bookshelf/lookup";
 
 function App() {
   const [unfinishedList, setUnfinishedList] = useState([]);
@@ -62,15 +62,38 @@ function App() {
     setFinished(book, !book.finished, callback)
   }
 
+  const handleDeleteBook = (book) => {
+    const deleteFromList = (list, setList) => {
+      const newList = list.filter(mBook => mBook.id !== book.id);
+      setList(newList);
+    }
+
+    const callback = (response, status) => {
+      if (status === 201) {
+        if (book.finished) {
+          deleteFromList(finishedList, setFinishedList);
+        } else {
+          deleteFromList(unfinishedList, setUnfinishedList);
+        }
+      }
+    }
+
+    deleteBook(book, callback);
+  }
+
   return (
     <div>
       <AddBook handleAddBook={handleAddBook}/>
       <Bookshelf finished={false}
                  bookList={unfinishedList}
-                 handleToggleBook={handleToggleBook}/>
+                 handleToggleBook={handleToggleBook}
+                 handleDeleteBook={handleDeleteBook}
+      />
       <Bookshelf finished={true}
                  bookList={finishedList}
-                 handleToggleBook={handleToggleBook}/>
+                 handleToggleBook={handleToggleBook}
+                   handleDeleteBook={handleDeleteBook}
+      />
     </div>
   )
 }

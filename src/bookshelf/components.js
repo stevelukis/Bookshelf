@@ -14,7 +14,9 @@ export function Bookshelf(props) {
         {bookList.map(book => {
           return (
             <Book book={book}
-                  handleToggleBook={props.handleToggleBook} />
+                  handleToggleBook={props.handleToggleBook}
+                  handleDeleteBook={props.handleDeleteBook}
+            />
           )
         })}
       </ul>

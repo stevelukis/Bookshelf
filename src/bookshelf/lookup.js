@@ -43,3 +43,7 @@ export function saveBook(book, callback) {
 export function setFinished(book, finished, callback) {
   callback({}, 201)
 }
+
+export function deleteBook(book, callback) {
+  callback({}, 201)
+}

@@ -15,6 +15,9 @@ export default function Book(props) {
       <div>
         <button onClick={() => props.handleToggleBook(book)}>{toogleButtonText}</button>
       </div>
+      <div>
+        <button onClick={() => props.handleDeleteBook(book)}>Delete</button>
+      </div>
     </div>
   )
 }
