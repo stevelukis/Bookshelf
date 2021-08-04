@@ -31,62 +31,68 @@ export function AddBook(props) {
 
   return (
     <section className="input_section">
-      <h3 className="input_title">Add a new book</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="input">
-          <label className="input_label"
-                 htmlFor="inputBookTitle">
-            Title
-          </label>
-          <input id="inputBookTitle"
-                 className="input_box"
-                 type="text"
-                 name="title"
-                 value={book.title}
-                 onChange={handleChange}
-                 required/>
+      <div className="card">
+        <div className="card-header">
+          Add a new book
         </div>
-        <div className="input">
-          <label htmlFor="inputBookAuthor"
-                 className="input_label">
-            Author
-          </label>
-          <input id="inputBookAuthor"
-                 className="input_box"
-                 type="text"
-                 name="author"
-                 value={book.author}
-                 onChange={handleChange}
-                 required/>
+        <div className="card-body">
+          <form onSubmit={handleSubmit}>
+            <div className="input">
+              <label className="input_label"
+                     htmlFor="inputBookTitle">
+                Title
+              </label>
+              <input id="inputBookTitle"
+                     className="input_box"
+                     type="text"
+                     name="title"
+                     value={book.title}
+                     onChange={handleChange}
+                     required/>
+            </div>
+            <div className="input">
+              <label htmlFor="inputBookAuthor"
+                     className="input_label">
+                Author
+              </label>
+              <input id="inputBookAuthor"
+                     className="input_box"
+                     type="text"
+                     name="author"
+                     value={book.author}
+                     onChange={handleChange}
+                     required/>
+            </div>
+            <div className="input">
+              <label htmlFor="inputBookYear"
+                     className="input_label">
+                Year
+              </label>
+              <input id="inputBookYear"
+                     className="input_box"
+                     type="number"
+                     name="year"
+                     value={book.year}
+                     onChange={handleChange}
+                     required/>
+            </div>
+            <div className="input">
+              <label htmlFor="inputBookIsComplete"
+                     className="input_label">
+                Finished?
+              </label>
+              <input id="inputBookIsComplete"
+                     className="input_box"
+                     name="finished"
+                     checked={book.finished}
+                     onChange={handleChange}
+                     type="checkbox"/>
+            </div>
+            <input type="submit"
+                   value="Submit"/>
+          </form>
         </div>
-        <div className="input">
-          <label htmlFor="inputBookYear"
-                 className="input_label">
-            Year
-          </label>
-          <input id="inputBookYear"
-                 className="input_box"
-                 type="number"
-                 name="year"
-                 value={book.year}
-                 onChange={handleChange}
-                 required/>
-        </div>
-        <div className="input">
-          <label htmlFor="inputBookIsComplete"
-                 className="input_label">
-            Finished?
-          </label>
-          <input id="inputBookIsComplete"
-                 className="input_box"
-                 name="finished"
-                 checked={book.finished}
-                 onChange={handleChange}
-                 type="checkbox"/>
-        </div>
-        <input type="submit"
-               value="Submit"/>
-      </form>
+      </div>
     </section>
   )
 }
