@@ -13,7 +13,8 @@ export function Bookshelf(props) {
       <ul>
         {bookList.map(book => {
           return (
-            <Book book={book} />
+            <Book book={book}
+                  handleToggleBook={props.handleToggleBook} />
           )
         })}
       </ul>

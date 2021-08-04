@@ -13,7 +13,7 @@ export default function Book(props) {
         Year: {book.year}
       </div>
       <div>
-        <button>{toogleButtonText}</button>
+        <button onClick={() => props.handleToggleBook(book)}>{toogleButtonText}</button>
       </div>
     </div>
   )

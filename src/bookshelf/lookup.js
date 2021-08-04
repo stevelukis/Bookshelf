@@ -15,13 +15,13 @@ const SAMPLE_UNFINISHED_BOOK_LIST = [
 
 const SAMPLE_FINISHED_BOOK_LIST = [
   {
-    id: 1,
+    id: 3,
     title: "Book 1 Finished",
     year: 2008,
     finished: true,
   },
   {
-    id: 2,
+    id: 4,
     title: "Book 2 Finished",
     year: 2020,
     finished: true,
@@ -38,4 +38,8 @@ export function getFinishedList(callback) {
 
 export function saveBook(book, callback) {
   callback({bookId: 3124}, 201)
+}
+
+export function setFinished(book, finished, callback) {
+  callback({}, 201)
 }
