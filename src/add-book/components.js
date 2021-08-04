@@ -31,7 +31,7 @@ export function AddBook(props) {
 
   return (
     <section className="input_section">
-      <h3 className="input_title">Masukkan Buku Baru</h3>
+      <h3 className="input_title">Add a new book</h3>
       <form onSubmit={handleSubmit}>
         <div className="input">
           <label className="input_label"
