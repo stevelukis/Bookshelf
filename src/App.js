@@ -83,17 +83,30 @@ function App() {
 
   return (
     <div>
-      <AddBook handleAddBook={handleAddBook}/>
-      <Bookshelf finished={false}
-                 bookList={unfinishedList}
-                 handleToggleBook={handleToggleBook}
-                 handleDeleteBook={handleDeleteBook}
-      />
-      <Bookshelf finished={true}
-                 bookList={finishedList}
-                 handleToggleBook={handleToggleBook}
-                   handleDeleteBook={handleDeleteBook}
-      />
+      <nav className="navbar navbar-light bg-light mx-2">
+        <a className="navbar-brand" href="#">
+          Bookshelf
+        </a>
+      </nav>
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-4">
+            <AddBook handleAddBook={handleAddBook}/>
+          </div>
+          <div className="col-lg-4">
+            <Bookshelf finished={false}
+                       bookList={unfinishedList}
+                       handleToggleBook={handleToggleBook}
+                       handleDeleteBook={handleDeleteBook}/>
+          </div>
+          <div className="col-lg-4">
+            <Bookshelf finished={true}
+                       bookList={finishedList}
+                       handleToggleBook={handleToggleBook}
+                       handleDeleteBook={handleDeleteBook}/>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
