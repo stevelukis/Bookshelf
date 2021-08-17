@@ -12,7 +12,7 @@ export function Bookshelf(props) {
       <div className="card-header">
         {bookshelfName}
       </div>
-      <div className="card-body p-1">
+      <div className="card-body p-0">
         <table className="table p-0 m-0">
           <tbody>
           {bookList.map(book => {
