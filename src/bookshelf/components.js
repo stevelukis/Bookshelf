@@ -8,7 +8,7 @@ export function Bookshelf(props) {
   bookList = bookList ? bookList : [];
 
   return (
-    <section>
+    <div>
       <h2>{bookshelfName}</h2>
       <ul>
         {bookList.map(book => {
@@ -20,6 +20,6 @@ export function Bookshelf(props) {
           )
         })}
       </ul>
-    </section>
+    </div>
   )
 }
