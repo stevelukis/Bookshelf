@@ -90,7 +90,7 @@ function App() {
           </a>
         </nav>
       </header>
-      <main className="container">
+      <main className="container mt-3">
         <article className="row">
           <aside className="col-lg-4">
             <AddBook handleAddBook={handleAddBook}/>
