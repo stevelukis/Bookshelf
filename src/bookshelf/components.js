@@ -8,18 +8,28 @@ export function Bookshelf(props) {
   bookList = bookList ? bookList : [];
 
   return (
-    <div>
-      <h2>{bookshelfName}</h2>
-      <ul>
-        {bookList.map(book => {
-          return (
-            <Book book={book}
-                  handleToggleBook={props.handleToggleBook}
-                  handleDeleteBook={props.handleDeleteBook}
-            />
-          )
-        })}
-      </ul>
+    <div className="card">
+      <div className="card-header">
+        {bookshelfName}
+      </div>
+      <div className="card-body p-1">
+        <table className="table p-0 m-0">
+          <tbody>
+          {bookList.map(book => {
+            return (
+              <tr>
+                <td className="p-3">
+                  <Book book={book}
+                        handleToggleBook={props.handleToggleBook}
+                        handleDeleteBook={props.handleDeleteBook}
+                  />
+                </td>
+              </tr>
+            )
+          })}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
