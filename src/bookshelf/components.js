@@ -17,7 +17,7 @@ export function Bookshelf(props) {
           <tbody>
           {bookList.map(book => {
             return (
-              <tr>
+              <tr key={book.id}>
                 <td className="p-3">
                   <Book book={book}
                         handleToggleBook={props.handleToggleBook}
