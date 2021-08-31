@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {Button, Card, FloatingLabel, Form} from "react-bootstrap";
 
 export function AddBook(props) {
 
@@ -6,7 +7,7 @@ export function AddBook(props) {
     return {
       title: '',
       author: '',
-      year: 0,
+      year: '',
       finished: false,
     }
   }
@@ -31,68 +32,55 @@ export function AddBook(props) {
 
   return (
     <section className="input_section">
-      <div className="card">
-        <div className="card-header">
+      <Card>
+        <Card.Header>
           Add a new book
-        </div>
-        <div className="card-body">
-          <form onSubmit={handleSubmit}>
-            <div className="form-floating">
-              <input id="inputBookTitle"
-                     className="form-control"
-                     type="text"
-                     name="title"
-                     value={book.title}
-                     onChange={handleChange}
-                     required/>
-              <label htmlFor="inputBookTitle">
-                Title
-              </label>
+        </Card.Header>
+        <Card.Body className="card-body">
+          <Form onSubmit={handleSubmit}>
+            <Form.Group>
+              <FloatingLabel label="Title">
+                <Form.Control id="inputBookTitle"
+                              type="text"
+                              name="title"
+                              value={book.title}
+                              onChange={handleChange}
+                              required/>
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="form-floating mt-2">
+              <FloatingLabel label="Author">
+                <Form.Control type="text"
+                              name="author"
+                              value={book.author}
+                              onChange={handleChange}
+                              required/>
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="form-floating mt-2">
+              <FloatingLabel label="Year">
+                <Form.Control type="number"
+                              name="year"
+                              value={book.year}
+                              onChange={handleChange}
+                              required/>
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Check
+              type="checkbox"
+              name="finished"
+              label="Finished?"
+              checked={book.finished}
+              onChange={handleChange}/>
+            <div className="d-grid">
+              <Button variant="primary"
+                      type="submit">
+                Save
+              </Button>
             </div>
-            <div className="form-floating mt-2">
-              <input id="inputBookAuthor"
-                     className="form-control"
-                     type="text"
-                     name="author"
-                     value={book.author}
-                     onChange={handleChange}
-                     required/>
-              <label htmlFor="inputBookAuthor"
-                     className="input_label">
-                Author
-              </label>
-            </div>
-            <div className="form-floating mt-2">
-              <input id="inputBookYear"
-                     className="form-control"
-                     type="number"
-                     name="year"
-                     value={book.year}
-                     onChange={handleChange}
-                     required/>
-              <label htmlFor="inputBookYear"
-                     className="input_label">
-                Year
-              </label>
-            </div>
-            <div className="form-check mt-2">
-              <input id="inputBookIsComplete"
-                     className="form-check-input"
-                     name="finished"
-                     checked={book.finished}
-                     onChange={handleChange}
-                     type="checkbox"/>
-              <label htmlFor="inputBookIsComplete"
-                     className="form-check-label">
-                Finished?
-              </label>
-            </div>
-            <input className="form-control btn btn-primary mt-2"
-                   type="submit"
-                   value="Save"/>
-          </form>
-        </div>
-      </div>
+          </Form>
+        </Card.Body>
+      </Card>
     </section>
   )
 }

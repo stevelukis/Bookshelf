@@ -2,6 +2,7 @@ import {AddBook} from "./add-book/components"
 import {Bookshelf} from "./bookshelf/components";
 import {useEffect, useState} from "react";
 import {deleteBook, getFinishedList, getUnfinishedList, saveBook, setFinished} from "./bookshelf/lookup";
+import {Col, Container, Navbar, Row} from "react-bootstrap";
 
 function App() {
   const [unfinishedList, setUnfinishedList] = useState([]);
@@ -84,31 +85,33 @@ function App() {
   return (
     <div>
       <header>
-        <nav className="navbar navbar-light bg-light mx-2">
-          <a className="navbar-brand" href="#">
+        <Navbar bg="light" className="mx-2">
+          <Navbar.Brand className="navbar-brand" href="#">
             Bookshelf
-          </a>
-        </nav>
+          </Navbar.Brand>
+        </Navbar>
       </header>
-      <main className="container mt-3">
-        <article className="row">
-          <aside className="col-lg-4">
-            <AddBook handleAddBook={handleAddBook}/>
-          </aside>
-          <section className="col-lg-4">
-            <Bookshelf finished={false}
-                       bookList={unfinishedList}
-                       handleToggleBook={handleToggleBook}
-                       handleDeleteBook={handleDeleteBook}/>
-          </section>
-          <section className="col-lg-4">
-            <Bookshelf finished={true}
-                       bookList={finishedList}
-                       handleToggleBook={handleToggleBook}
-                       handleDeleteBook={handleDeleteBook}/>
-          </section>
-        </article>
-      </main>
+      <Container className="mt-3">
+          <article className="row">
+            <Row>
+              <Col lg={4}>
+                <AddBook handleAddBook={handleAddBook}/>
+              </Col>
+              <Col lg={4}>
+                <Bookshelf finished={false}
+                           bookList={unfinishedList}
+                           handleToggleBook={handleToggleBook}
+                           handleDeleteBook={handleDeleteBook}/>
+              </Col>
+              <Col lg={4}>
+                <Bookshelf finished={true}
+                           bookList={finishedList}
+                           handleToggleBook={handleToggleBook}
+                           handleDeleteBook={handleDeleteBook}/>
+              </Col>
+            </Row>
+          </article>
+      </Container>
     </div>
   )
 }

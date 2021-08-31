@@ -1,4 +1,5 @@
 import Book from "../book/components";
+import {Table} from "react-bootstrap";
 
 export function Bookshelf(props) {
   const bookshelfName = props.finished ? "Finished Books" : "Unfinished Books"
@@ -13,7 +14,7 @@ export function Bookshelf(props) {
         {bookshelfName}
       </div>
       <div className="card-body p-0">
-        <table className="table p-0 m-0">
+        <Table className="p-0 m-0">
           <tbody>
           {bookList.map(book => {
             return (
@@ -28,7 +29,7 @@ export function Bookshelf(props) {
             )
           })}
           </tbody>
-        </table>
+        </Table>
       </div>
     </div>
   )
