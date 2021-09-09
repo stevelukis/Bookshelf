@@ -4,7 +4,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: 'index.bundle.js'
+    filename: '[name].[contenthash].js',
+    clean: true,
+  },
+  optimization: {
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
   },
   devServer: {
     port: 3000,
@@ -27,7 +41,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      inject: false,
+      title: 'React Bookshelf',
       template: path.join(__dirname, "public", "index.html")
     })
   ]
