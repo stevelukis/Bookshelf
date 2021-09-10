@@ -28,16 +28,33 @@ const SAMPLE_FINISHED_BOOK_LIST = [
   },
 ]
 
+function generateID() {
+  return Math.random().toString(36).substr(2, 5);
+}
+
 export function getUnfinishedList(callback) {
-  callback(SAMPLE_UNFINISHED_BOOK_LIST)
+  callback([...SAMPLE_UNFINISHED_BOOK_LIST]);
 }
 
 export function getFinishedList(callback) {
-  callback(SAMPLE_FINISHED_BOOK_LIST)
+  callback([...SAMPLE_FINISHED_BOOK_LIST]);
 }
 
 export function saveBook(book, callback) {
-  callback({bookId: 3124}, 201)
+  let getListCallback = function(list) {
+    const addedBook = {id: generateID(), ...book}
+    list.push(addedBook);
+
+    const key = book.finished ? 'finished' : 'unfinished';
+    localStorage.setItem(key, JSON.stringify(list))
+    callback({bookId: addedBook.id}, 201);
+  }
+
+  if (book.finished) {
+    getFinishedList(getListCallback)
+  } else {
+    getUnfinishedList(getListCallback)
+  }
 }
 
 export function setFinished(book, finished, callback) {
