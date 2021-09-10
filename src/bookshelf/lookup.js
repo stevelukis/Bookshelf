@@ -1,43 +1,23 @@
-const SAMPLE_UNFINISHED_BOOK_LIST = [
-  {
-    id: 1,
-    title: "Book 1 Unfinished",
-    year: 1945,
-    finished: false,
-  },
-  {
-    id: 2,
-    title: "Book 2 Unfinished",
-    year: 2000,
-    finished: false,
-  },
-]
-
-const SAMPLE_FINISHED_BOOK_LIST = [
-  {
-    id: 3,
-    title: "Book 1 Finished",
-    year: 2008,
-    finished: true,
-  },
-  {
-    id: 4,
-    title: "Book 2 Finished",
-    year: 2020,
-    finished: true,
-  },
-]
+const FINISHED_STORAGE_KEY = 'finished';
+const UNFINISHED_STORAGE_KEY = 'unfinished';
 
 function generateID() {
   return Math.random().toString(36).substr(2, 5);
 }
 
+function getListFromWebStorage(listKey) {
+  const rawList = localStorage.getItem(listKey);
+  return JSON.parse(rawList)
+}
+
 export function getUnfinishedList(callback) {
-  callback([...SAMPLE_UNFINISHED_BOOK_LIST]);
+  const list = getListFromWebStorage(UNFINISHED_STORAGE_KEY)
+  callback([...list]);
 }
 
 export function getFinishedList(callback) {
-  callback([...SAMPLE_FINISHED_BOOK_LIST]);
+  const list = getListFromWebStorage(FINISHED_STORAGE_KEY)
+  callback([...list]);
 }
 
 export function saveBook(book, callback) {
@@ -45,7 +25,7 @@ export function saveBook(book, callback) {
     const addedBook = {id: generateID(), ...book}
     list.push(addedBook);
 
-    const key = book.finished ? 'finished' : 'unfinished';
+    const key = book.finished ? FINISHED_STORAGE_KEY : UNFINISHED_STORAGE_KEY;
     localStorage.setItem(key, JSON.stringify(list))
     callback({bookId: addedBook.id}, 201);
   }
