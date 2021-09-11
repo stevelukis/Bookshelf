@@ -14,13 +14,13 @@ function getListFromWebStorage(listKey) {
 }
 
 export function getUnfinishedList(callback) {
-  unfinishedList = getListFromWebStorage(UNFINISHED_STORAGE_KEY)
-  callback(unfinishedList);
+  unfinishedList = getListFromWebStorage(UNFINISHED_STORAGE_KEY) ?? [];
+  callback([...unfinishedList]);
 }
 
 export function getFinishedList(callback) {
-  finishedList = getListFromWebStorage(FINISHED_STORAGE_KEY)
-  callback(finishedList);
+  finishedList = getListFromWebStorage(FINISHED_STORAGE_KEY) ?? [];
+  callback([...finishedList]);
 }
 
 export function saveBook(book, callback) {
@@ -28,7 +28,7 @@ export function saveBook(book, callback) {
   if (book.finished) {
     list = finishedList;
   } else {
-    list = finishedList;
+    list = unfinishedList;
   }
   const addedBook = {id: generateID(), ...book}
   list.push(addedBook);
@@ -44,5 +44,17 @@ export function setFinished(book, finished, callback) {
 }
 
 export function deleteBook(book, callback) {
+  let list;
+  if (book.finished) {
+    finishedList = finishedList.filter(mBook => book.id !== mBook.id);
+    list = finishedList;
+  } else {
+    unfinishedList = unfinishedList.filter(mBook => book.id !== mBook.id);
+    list = unfinishedList;
+  }
+
+  const key = book.finished ? FINISHED_STORAGE_KEY : UNFINISHED_STORAGE_KEY;
+  localStorage.setItem(key, JSON.stringify(list))
+
   callback({}, 201)
 }

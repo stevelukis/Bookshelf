@@ -1,7 +1,7 @@
 import {AddBook} from "./add-book/components"
 import {Bookshelf} from "./bookshelf/components";
 import {useEffect, useState} from "react";
-import {deleteBook, getFinishedList, getUnfinishedList, saveBook, setFinished} from "./bookshelf/lookup";
+import {deleteBook, getFinishedList, getUnfinishedList, saveBook, setFinished} from "./lookup";
 import {Col, Container, Navbar, Row} from "react-bootstrap";
 
 function App() {
@@ -64,6 +64,7 @@ function App() {
   }
 
   const handleDeleteBook = (book) => {
+    console.log(book.id)
     const deleteFromList = (list, setList) => {
       const newList = list.filter(mBook => mBook.id !== book.id);
       setList(newList);
