@@ -1,7 +1,7 @@
 import {AddBook} from "./add-book/components"
 import {Bookshelf} from "./bookshelf/components";
 import {useEffect, useState} from "react";
-import {deleteBook, getFinishedList, getUnfinishedList, saveBook, setFinished} from "./lookup";
+import {deleteBook, getFinishedList, getUnfinishedList, saveBook, setFinished} from "./repository";
 import {Col, Container, Navbar, Row} from "react-bootstrap";
 
 function App() {
@@ -10,32 +10,24 @@ function App() {
 
 
   useEffect(() => {
-    getUnfinishedList(list => {
+    getUnfinishedList().then(list => {
       setUnfinishedList(list)
-    });
+    })
 
-    getFinishedList(list => {
+    getFinishedList().then(list => {
       setFinishedList(list)
-    });
+    })
   }, [])
 
   const handleAddBook = (book) => {
-    const addToList = (list) => {
-      return [...list, book]
-    }
-
-    const callback = (response, status) => {
-      if (status === 201) {
-        book.id = response.bookId;
-        if (book.finished) {
-          setFinishedList(addToList)
-        } else {
-          setUnfinishedList(addToList)
-        }
+    saveBook(book).then(({bookId}) => {
+      book.id = bookId;
+      if (book.finished) {
+        setFinishedList([...finishedList, book])
+      } else {
+        setUnfinishedList([...unfinishedList, book])
       }
-    }
-
-    saveBook(book, callback);
+    });
   }
 
   const handleToggleBook = (book) => {
@@ -70,17 +62,13 @@ function App() {
       setList(newList);
     }
 
-    const callback = (response, status) => {
-      if (status === 201) {
-        if (book.finished) {
-          deleteFromList(finishedList, setFinishedList);
-        } else {
-          deleteFromList(unfinishedList, setUnfinishedList);
-        }
+    deleteBook(book).then(_ => {
+      if (book.finished) {
+        deleteFromList(finishedList, setFinishedList);
+      } else {
+        deleteFromList(unfinishedList, setUnfinishedList);
       }
-    }
-
-    deleteBook(book, callback);
+    });
   }
 
   return (

@@ -1,9 +1,6 @@
 const FINISHED_STORAGE_KEY = 'finished';
 const UNFINISHED_STORAGE_KEY = 'unfinished';
 
-let unfinishedList = [];
-let finishedList = [];
-
 function generateID() {
   return Math.random().toString(36).substr(2, 5);
 }
@@ -13,48 +10,39 @@ function getListFromWebStorage(listKey) {
   return JSON.parse(rawList)
 }
 
-export function getUnfinishedList(callback) {
-  unfinishedList = getListFromWebStorage(UNFINISHED_STORAGE_KEY) ?? [];
-  callback([...unfinishedList]);
+export async function lookupUnfinishedList() {
+  return getListFromWebStorage(UNFINISHED_STORAGE_KEY) ?? [];
 }
 
-export function getFinishedList(callback) {
-  finishedList = getListFromWebStorage(FINISHED_STORAGE_KEY) ?? [];
-  callback([...finishedList]);
+export async function lookupFinishedList() {
+  return getListFromWebStorage(FINISHED_STORAGE_KEY) ?? [];
 }
 
-export function saveBook(book, callback) {
+export async function lookupSaveBook(book) {
+  const key = book.finished ? FINISHED_STORAGE_KEY : UNFINISHED_STORAGE_KEY;
+  const addedBook = {id: generateID(), ...book}
+
   let list;
   if (book.finished) {
-    list = finishedList;
+    list = await lookupFinishedList();
   } else {
-    list = unfinishedList;
+    list = await lookupUnfinishedList();
   }
-  const addedBook = {id: generateID(), ...book}
   list.push(addedBook);
 
-  const key = book.finished ? FINISHED_STORAGE_KEY : UNFINISHED_STORAGE_KEY;
   localStorage.setItem(key, JSON.stringify(list))
-
-  callback({bookId: book.id}, 201)
+  return {bookId: book.id}
 }
 
-export function setFinished(book, finished, callback) {
-  callback({}, 201)
-}
-
-export function deleteBook(book, callback) {
+export async function lookupDeleteBook(book) {
   let list;
   if (book.finished) {
-    finishedList = finishedList.filter(mBook => book.id !== mBook.id);
-    list = finishedList;
+    list = await lookupFinishedList();
   } else {
-    unfinishedList = unfinishedList.filter(mBook => book.id !== mBook.id);
-    list = unfinishedList;
+    list = await lookupUnfinishedList();
   }
+  list = list.filter(mBook => book.id !== mBook.id);
 
   const key = book.finished ? FINISHED_STORAGE_KEY : UNFINISHED_STORAGE_KEY;
   localStorage.setItem(key, JSON.stringify(list))
-
-  callback({}, 201)
 }
