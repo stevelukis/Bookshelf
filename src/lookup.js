@@ -41,8 +41,17 @@ export async function lookupDeleteBook(book) {
   } else {
     list = await lookupUnfinishedList();
   }
-  list = list.filter(mBook => book.id !== mBook.id);
+  list = list.filter(mBook => mBook.id !== book.id);
+  console.log(list)
 
   const key = book.finished ? FINISHED_STORAGE_KEY : UNFINISHED_STORAGE_KEY;
   localStorage.setItem(key, JSON.stringify(list))
+}
+
+export async function lookupSetFinished(book, finished) {
+  // Delete book from the source "from" list
+  await lookupDeleteBook(book);
+
+  // Add book to its new list
+  await lookupSaveBook({...book, finished: finished});
 }

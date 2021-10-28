@@ -1,4 +1,4 @@
-import {lookupDeleteBook, lookupFinishedList, lookupSaveBook, lookupUnfinishedList} from "./lookup";
+import {lookupDeleteBook, lookupFinishedList, lookupSaveBook, lookupSetFinished, lookupUnfinishedList} from "./lookup";
 
 export async function getUnfinishedList() {
   return await lookupUnfinishedList();
@@ -12,8 +12,8 @@ export async function saveBook(book) {
   return await lookupSaveBook(book);
 }
 
-export function setFinished(book, finished, callback) {
-  callback({}, 201)
+export async function setFinished(book, finished) {
+  return await lookupSetFinished(book, finished);
 }
 
 export async function deleteBook(book) {

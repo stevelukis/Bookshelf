@@ -42,17 +42,13 @@ function App() {
       setDestList(newDestList);
     }
 
-    const callback = (response, status) => {
-      if (status === 201) {
-        if (book.finished) {
-          moveBook(finishedList, setFinishedList, unfinishedList, setUnfinishedList);
-        } else {
-          moveBook(unfinishedList, setUnfinishedList, finishedList, setFinishedList);
-        }
+    setFinished(book, !book.finished).then(_ => {
+      if (book.finished) {
+        moveBook(finishedList, setFinishedList, unfinishedList, setUnfinishedList);
+      } else {
+        moveBook(unfinishedList, setUnfinishedList, finishedList, setFinishedList);
       }
-    }
-
-    setFinished(book, !book.finished, callback)
+    });
   }
 
   const handleDeleteBook = (book) => {
