@@ -104,3 +104,33 @@ class BookAPITest(BaseBookTest):
 
             deleted_book = Book.objects.filter(id=book.id).first()
             self.assertIsNone(deleted_book)
+
+    def test_list_finished(self):
+        url = reverse('book-finished')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        book_list = Book.objects.filter(finished=True)
+        book_result = response.data
+
+        self.assertEqual(len(book_list), len(book_result))
+
+        for i in range(len(book_list)):
+            book = book_list[i]
+            book_dict = book_result[i]
+            self.verify_book(book, book_dict)
+
+    def test_list_unfinished(self):
+        url = reverse('book-unfinished')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        book_list = Book.objects.filter(finished=False)
+        book_result = response.data
+
+        self.assertEqual(len(book_list), len(book_result))
+
+        for i in range(len(book_list)):
+            book = book_list[i]
+            book_dict = book_result[i]
+            self.verify_book(book, book_dict)
