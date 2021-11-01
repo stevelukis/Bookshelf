@@ -9,26 +9,27 @@ function App() {
   const [finishedList, setFinishedList] = useState([]);
 
 
-  useEffect(async () => {
-    let unfinishedList = await getUnfinishedList()
-    setUnfinishedList(unfinishedList)
+  useEffect(() => {
+    async function fetchData() {
+      let unfinishedList = await getUnfinishedList()
+      setUnfinishedList(unfinishedList)
 
-    let finishedList = await getFinishedList()
-    setUnfinishedList(finishedList)
+      let finishedList = await getFinishedList()
+      setFinishedList(finishedList)
+    }
+    fetchData()
   }, [])
 
-  const handleAddBook = (book) => {
-    saveBook(book).then(({bookId}) => {
-      book.id = bookId;
-      if (book.finished) {
-        setFinishedList([...finishedList, book])
-      } else {
-        setUnfinishedList([...unfinishedList, book])
-      }
-    });
+  const handleAddBook = async (book) => {
+    let savedBook = await saveBook(book)
+    if (savedBook.finished) {
+      setFinishedList([...finishedList, savedBook])
+    } else {
+      setUnfinishedList([...unfinishedList, savedBook])
+    }
   }
 
-  const handleToggleBook = (book) => {
+  const handleToggleBook = async (book) => {
     const moveBook = (sourceList, setSourceList, destList, setDestList) => {
       console.log(book)
       const newSourceList = sourceList.filter(mBook => {
@@ -40,13 +41,13 @@ function App() {
       setDestList(newDestList);
     }
 
-    setFinished(book, !book.finished).then(_ => {
-      if (book.finished) {
-        moveBook(finishedList, setFinishedList, unfinishedList, setUnfinishedList);
-      } else {
-        moveBook(unfinishedList, setUnfinishedList, finishedList, setFinishedList);
-      }
-    });
+    await setFinished(book, !book.finished)
+
+    if (book.finished) {
+      moveBook(finishedList, setFinishedList, unfinishedList, setUnfinishedList);
+    } else {
+      moveBook(unfinishedList, setUnfinishedList, finishedList, setFinishedList);
+    }
   }
 
   const handleDeleteBook = (book) => {
