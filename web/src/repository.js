@@ -1,11 +1,11 @@
 import {lookupDeleteBook, lookupFinishedList, lookupSaveBook, lookupSetFinished, lookupUnfinishedList} from "./lookup";
 
 export async function getUnfinishedList() {
-  return await lookupUnfinishedList();
+  return await lookupUnfinishedList()
 }
 
 export async function getFinishedList() {
-  return await lookupFinishedList();
+  return await lookupFinishedList()
 }
 
 export async function saveBook(book) {

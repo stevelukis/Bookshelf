@@ -1,3 +1,7 @@
+const axios = require('axios')
+
+const BASE_URL = "http://127.0.0.1:8000/book"
+
 const FINISHED_STORAGE_KEY = 'finished';
 const UNFINISHED_STORAGE_KEY = 'unfinished';
 
@@ -10,12 +14,18 @@ function getListFromWebStorage(listKey) {
   return JSON.parse(rawList)
 }
 
+async function getListFromAPI(endpoint) {
+  return await axios.get(`${BASE_URL}/${endpoint}`)
+}
+
 export async function lookupUnfinishedList() {
-  return getListFromWebStorage(UNFINISHED_STORAGE_KEY) ?? [];
+  let response = await getListFromAPI('unfinished');
+  return response.data;
 }
 
 export async function lookupFinishedList() {
-  return getListFromWebStorage(FINISHED_STORAGE_KEY) ?? [];
+  let response = await getListFromAPI('finished');
+  return response.data;
 }
 
 export async function lookupSaveBook(book) {

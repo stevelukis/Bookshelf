@@ -9,14 +9,12 @@ function App() {
   const [finishedList, setFinishedList] = useState([]);
 
 
-  useEffect(() => {
-    getUnfinishedList().then(list => {
-      setUnfinishedList(list)
-    })
+  useEffect(async () => {
+    let unfinishedList = await getUnfinishedList()
+    setUnfinishedList(unfinishedList)
 
-    getFinishedList().then(list => {
-      setFinishedList(list)
-    })
+    let finishedList = await getFinishedList()
+    setUnfinishedList(finishedList)
   }, [])
 
   const handleAddBook = (book) => {
@@ -77,25 +75,25 @@ function App() {
         </Navbar>
       </header>
       <Container className="mt-3">
-          <article className="row">
-            <Row>
-              <Col lg={4}>
-                <AddBook handleAddBook={handleAddBook}/>
-              </Col>
-              <Col lg={4}>
-                <Bookshelf finished={false}
-                           bookList={unfinishedList}
-                           handleToggleBook={handleToggleBook}
-                           handleDeleteBook={handleDeleteBook}/>
-              </Col>
-              <Col lg={4}>
-                <Bookshelf finished={true}
-                           bookList={finishedList}
-                           handleToggleBook={handleToggleBook}
-                           handleDeleteBook={handleDeleteBook}/>
-              </Col>
-            </Row>
-          </article>
+        <article className="row">
+          <Row>
+            <Col lg={4}>
+              <AddBook handleAddBook={handleAddBook}/>
+            </Col>
+            <Col lg={4}>
+              <Bookshelf finished={false}
+                         bookList={unfinishedList}
+                         handleToggleBook={handleToggleBook}
+                         handleDeleteBook={handleDeleteBook}/>
+            </Col>
+            <Col lg={4}>
+              <Bookshelf finished={true}
+                         bookList={finishedList}
+                         handleToggleBook={handleToggleBook}
+                         handleDeleteBook={handleDeleteBook}/>
+            </Col>
+          </Row>
+        </article>
       </Container>
     </div>
   )
